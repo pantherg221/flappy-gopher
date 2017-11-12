@@ -38,7 +38,17 @@ func run() error {
 		return fmt.Errorf("could not draw title: %v", err)
 	}
 
-	time.Sleep(20 * time.Second)
+	time.Sleep(5 * time.Second)
+
+	s, err := newScene(r)
+	if err != nil {
+		return fmt.Errorf("could not draw background: %v", err)
+	}
+	defer s.destroy()
+
+	s.paint(r)
+
+	time.Sleep(10 * time.Second)
 
 	return nil
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"time"
@@ -38,19 +39,19 @@ func run() error {
 		return fmt.Errorf("could not draw title: %v", err)
 	}
 
-	time.Sleep(5 * time.Second)
+	time.Sleep(1 * time.Second)
 
 	s, err := newScene(r)
 	if err != nil {
-		return fmt.Errorf("could not draw background: %v", err)
+		return fmt.Errorf("could not create scene: %v", err)
 	}
 	defer s.destroy()
 
-	s.paint(r)
+	ctx, cancel := context.WithCancel(context.Background())
+	time.AfterFunc(5*time.Second, cancel)
 
-	time.Sleep(10 * time.Second)
+	return <-s.run(ctx, r)
 
-	return nil
 }
 
 func drawTitle(r *sdl.Renderer) error {

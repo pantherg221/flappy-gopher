@@ -112,8 +112,14 @@ func (b *bird) touch(p *pipe) {
 	}
 
 	// pipe is too low
-	if p.h < b.y-b.h/2 {
+	if !p.inverted && p.h < b.y-b.h/2 {
 		return
 	}
+
+	// inverted pipe is too high
+	if p.inverted && 600-p.h > b.y+b.h/2 {
+		return
+	}
+
 	b.dead = true
 }

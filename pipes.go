@@ -116,7 +116,7 @@ func (p *pipe) touch(b *bird) {
 }
 
 func (p *pipe) paint(r *sdl.Renderer, texture *sdl.Texture) error {
-	p.mu.RUnlock()
+	p.mu.RLock()
 	defer p.mu.RUnlock()
 
 	rect := &sdl.Rect{X: p.x, Y: 600 - p.h, W: p.w, H: p.h}

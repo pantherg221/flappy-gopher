@@ -10,10 +10,8 @@ import (
 )
 
 type scene struct {
-	time  int
-	bg    *sdl.Texture
-	bird  *bird
-	birds []*sdl.Texture
+	bg   *sdl.Texture
+	bird *bird
 }
 
 func newScene(r *sdl.Renderer) (*scene, error) {
@@ -66,7 +64,6 @@ func (s *scene) handleEvent(event sdl.Event) bool {
 }
 
 func (s *scene) paint(r *sdl.Renderer) error {
-	s.time++
 
 	r.Clear()
 
